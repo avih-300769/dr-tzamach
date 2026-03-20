@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>ד"ר צמח 🌿</title>
+<style>
+:root{--g:#2d5a3d;--gl:#4a8c5c;--gp:#7ec896;--gm:#c8e6d0;--cr:#f5f0e8;}
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif;direction:rtl;}
+body{background:var(--cr);min-height:100vh;overflow-x:hidden;}
+.pg{display:none;min-height:100vh;flex-direction:column;}
+.pg.on{display:flex;}
+
+/* HOME */
+#home{background:linear-gradient(160deg,#1a3a2a,var(--g) 55%,#1f4a2e);
+  align-items:center;justify-content:center;text-align:center;padding:2rem;gap:.5rem;}
+.logo{font-size:2.8rem;font-weight:900;color:var(--gp);margin-top:.5rem;}
+.sub{color:var(--gm);font-size:.88rem;margin-bottom:2rem;}
+.hbtn{border:none;border-radius:14px;padding:1rem 1.5rem;font-size:1rem;font-weight:700;
+  width:100%;max-width:280px;cursor:pointer;margin-bottom:.7rem;display:block;font-family:Arial;}
+.hbtn.solid{background:linear-gradient(135deg,var(--gl),var(--g));color:#fff;}
+.hbtn.ghost{background:rgba(255,255,255,.1);border:1px solid rgba(126,200,150,.3);color:var(--gm);}
+
+/* SETUP */
+#setup{background:var(--cr);align-items:center;justify-content:center;padding:1.5rem;}
+.box{background:#fff;border-radius:18px;padding:1.5rem;width:100%;max-width:360px;box-shadow:0 4px 20px rgba(0,0,0,.1);}
+.box h2{color:var(--g);font-size:1.1rem;margin-bottom:.4rem;}
+.box p{font-size:.8rem;color:#666;margin-bottom:1rem;line-height:1.6;}
+.steps{background:rgba(74,140,92,.07);border-radius:10px;padding:.8rem 1rem;margin-bottom:1rem;font-size:.78rem;color:#444;line-height:1.9;}
+.steps a{color:var(--gl);font-weight:700;}
+.ki{width:100%;border:1.5px solid var(--gm);border-radius:10px;padding:.75rem 1rem;
+  font-size:.9rem;outline:none;margin-bottom:.5rem;direction:ltr;font-family:Arial;}
+.ki:focus{border-color:var(--gl);}
+
+/* TOPBAR */
+.tb{background:var(--g);padding:.8rem 1rem;display:flex;align-items:center;gap:.7rem;flex-shrink:0;}
+.tb span{color:#fff;font-weight:700;font-size:1rem;}
+.bk{background:none;border:none;color:var(--gp);font-size:1.5rem;cursor:pointer;line-height:1;}
+
+/* SCAN */
+.sc{flex:1;overflow-y:auto;padding:1.2rem;}
+.drop{border:2px dashed var(--gl);border-radius:16px;padding:2rem 1rem;text-align:center;
+  cursor:pointer;background:rgba(74,140,92,.04);margin-bottom:1rem;transition:all .2s;}
+.drop.has{padding:.5rem;border-style:solid;border-color:var(--gp);}
+.drop img{width:100%;max-height:240px;object-fit:cover;border-radius:10px;}
+.drop .di{font-size:3rem;margin-bottom:.4rem;}
+.drop p{color:#666;font-size:.88rem;}
+
+/* LOADING */
+#loading{background:#1a3a2a;align-items:center;justify-content:center;
+  gap:1.2rem;text-align:center;padding:2rem;}
+.spin{font-size:4rem;animation:spin 2s linear infinite;}
+.lm{color:var(--gm);font-size:1rem;font-weight:500;}
+.dots{display:flex;gap:6px;justify-content:center;}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--gp);
+  animation:dp 1.4s ease-in-out infinite;}
+.dot:nth-child(2){animation-delay:.2s;}
+.dot:nth-child(3){animation-delay:.4s;}
+
+/* IDENTIFY */
+.ic{background:#fff;border-radius:16px;padding:1.2rem;
+  box-shadow:0 2px 12px rgba(0,0,0,.08);margin-bottom:1rem;}
+.iname{font-size:1.4rem;font-weight:900;color:#1a3a2a;}
+.ilat{font-size:.8rem;color:#666;font-style:italic;}
+.bl{display:flex;justify-content:space-between;font-size:.75rem;color:#888;
+  margin-bottom:3px;margin-top:.8rem;}
+.bar{height:6px;background:var(--gm);border-radius:3px;overflow:hidden;margin-bottom:.8rem;}
+.bf{height:100%;background:linear-gradient(90deg,var(--gl),var(--gp));
+  border-radius:3px;transition:width .8s;}
+.alt{background:var(--gm);border-radius:8px;padding:.4rem .8rem;margin-bottom:.3rem;
+  cursor:pointer;font-weight:600;color:var(--g);font-size:.85rem;}
+.btn2{display:grid;grid-template-columns:1fr 1fr;gap:.7rem;margin-bottom:.8rem;}
+.fb{background:#fff;border:1.5px solid var(--gm);border-radius:13px;
+  padding:1rem;margin-bottom:.7rem;}
+.inp{width:100%;border:1.5px solid var(--gm);border-radius:9px;padding:.65rem .9rem;
+  font-size:.9rem;outline:none;margin:.45rem 0;font-family:Arial;}
+.inp:focus{border-color:var(--gl);}
+.xl{display:grid;grid-template-columns:1fr 1fr;gap:.5rem;margin-top:.7rem;}
+.xa{display:flex;align-items:center;justify-content:center;color:#fff;border-radius:9px;
+  padding:.6rem .4rem;font-size:.8rem;font-weight:700;text-decoration:none;}
+
+/* RESULT */
+.hero{background:linear-gradient(to bottom,#1a3a2a,var(--g));
+  padding:1.2rem 1.3rem 2.5rem;color:#fff;position:relative;flex-shrink:0;}
+.hero::after{content:'';position:absolute;bottom:-16px;left:0;right:0;
+  height:32px;background:var(--cr);border-radius:50% 50% 0 0;}
+.hn{font-size:1.75rem;font-weight:900;margin-bottom:.15rem;}
+.hl{font-style:italic;opacity:.7;font-size:.83rem;margin-bottom:.7rem;}
+.hbl{display:flex;justify-content:space-between;font-size:.76rem;opacity:.85;margin-bottom:3px;}
+.ht{height:7px;background:rgba(255,255,255,.18);border-radius:3px;overflow:hidden;}
+.hf{height:100%;border-radius:3px;transition:width 1s;}
+.st{font-size:.7rem;font-weight:700;letter-spacing:.12em;color:var(--gl);
+  text-transform:uppercase;margin:1.2rem 0 .6rem;}
+.dc{background:#fff;border-radius:13px;padding:.9rem;
+  box-shadow:0 2px 8px rgba(0,0,0,.07);margin-bottom:.8rem;}
+.dr{display:flex;gap:.65rem;padding:.55rem 0;border-bottom:1px solid #eef7f0;}
+.dr:last-child{border-bottom:none;}
+.dk{font-size:1.15rem;flex-shrink:0;}
+.dt{font-weight:700;font-size:.83rem;color:#1a3a2a;}
+.dd{font-size:.77rem;color:#555;line-height:1.4;}
+.tc{background:#fff;border-radius:12px;padding:.82rem 1rem;margin-bottom:.55rem;
+  display:flex;align-items:center;gap:.75rem;cursor:pointer;
+  box-shadow:0 1px 5px rgba(0,0,0,.06);}
+.ck{width:21px;height:21px;border-radius:50%;border:2px solid var(--gl);
+  flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all .2s;}
+.ck.ok{background:var(--gl);border-color:var(--gl);}
+.ck.ok::after{content:'✓';color:#fff;font-size:.6rem;font-weight:700;}
+.tl{font-size:.7rem;color:var(--gl);font-weight:700;}
+.tx{font-size:.82rem;color:#333;}
+.tx.ok{text-decoration:line-through;color:#bbb;}
+
+/* GARDEN */
+.gh{background:#1a3a2a;padding:1.2rem;color:#fff;flex-shrink:0;}
+.gn{font-size:1.3rem;font-weight:900;}
+.gg{display:grid;grid-template-columns:1fr 1fr;gap:.85rem;}
+.pc{background:#fff;border-radius:13px;overflow:hidden;
+  box-shadow:0 2px 8px rgba(0,0,0,.08);cursor:pointer;}
+.pt{height:95px;background:linear-gradient(135deg,var(--gm),var(--gp));
+  display:flex;align-items:center;justify-content:center;font-size:2.4rem;position:relative;}
+.pt img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}
+.pd{position:absolute;top:5px;left:5px;width:8px;height:8px;border-radius:50%;border:2px solid #fff;}
+.pi{padding:.65rem .8rem;}
+.pn{font-weight:700;font-size:.83rem;color:#1a3a2a;}
+.pp{font-size:.65rem;color:#888;}
+
+/* BUTTONS */
+.btn{border:none;border-radius:13px;padding:.88rem;font-size:.95rem;font-weight:700;
+  cursor:pointer;width:100%;display:block;margin-bottom:.5rem;font-family:Arial;}
+.btn.g{background:linear-gradient(135deg,var(--gl),var(--g));color:#fff;}
+.btn.w{background:#fff;border:2px solid #ccc;color:#555;}
+.btn.o{background:transparent;border:1.5px solid var(--gm);color:#888;}
+.btn:disabled{opacity:.35;cursor:not-allowed;}
+.err{background:#fff3e0;border:1.5px solid #ff9800;border-radius:10px;
+  padding:.65rem .9rem;font-size:.76rem;color:#e65100;margin-bottom:.8rem;line-height:1.5;}
+.toast{position:fixed;bottom:50px;left:50%;transform:translateX(-50%);
+  background:#1a3a2a;color:#fff;padding:.6rem 1.3rem;border-radius:50px;
+  font-size:.82rem;z-index:99;pointer-events:none;opacity:0;transition:opacity .3s;
+  white-space:nowrap;max-width:90vw;text-align:center;}
+.toast.on{opacity:1;}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes dp{0%,80%,100%{transform:scale(.55);opacity:.3}40%{transform:scale(1);opacity:1}}
+</style>
+</head>
+<body>
+<div id="app">
+
+<!-- HOME -->
+<div class="pg on" id="home">
+  <span style="font-size:5rem;margin-bottom:.3rem;">🌿</span>
+  <div class="logo">ד"ר צמח</div>
+  <div class="sub">צלם · זהה · אבחן</div>
+  <input type="file" id="ci" accept="image/*" capture="environment" style="display:none" onchange="pick(this)">
+  <input type="file" id="gi" accept="image/*" style="display:none" onchange="pick(this)">
+  <button class="hbtn solid" onclick="ci.click()">📷 צלם צמח</button>
+  <button class="hbtn ghost" onclick="gi.click()">🖼️ בחר מהגלריה</button>
+  <button id="gardenLink" onclick="show('garden')"
+    style="background:none;border:none;color:#c8e6d0;font-size:.88rem;cursor:pointer;margin-top:.5rem;">
+    🌱 הגינה שלי
+  </button>
+</div>
+
+<!-- SETUP (first time only) -->
+<div class="pg" id="setup">
+  <div class="box">
+    <h2>🔑 הגדרה ראשונית</h2>
+    <p>נדרש מפתח Gemini חינמי — פעם אחת בלבד.</p>
+    <div class="steps">
+      <strong>30 שניות:</strong><br>
+      1. כנס ל: <a href="https://aistudio.google.com/apikey" target="_blank">aistudio.google.com/apikey</a><br>
+      2. לחץ <strong>Create API Key</strong><br>
+      3. העתק והדבק כאן ↓
+    </div>
+    <input class="ki" id="keyIn" type="password" placeholder="AIzaSy..." oninput="document.getElementById('keySave').disabled=this.value.length<10">
+    <button class="btn g" id="keySave" onclick="saveKey()" disabled>שמור והתחל →</button>
+    <button class="btn o" onclick="show('home')" style="margin-top:0;">← חזור</button>
+  </div>
+</div>
+
+<!-- SCAN -->
+<div class="pg" id="scan">
+  <div class="tb"><button class="bk" onclick="show('home')">←</button><span>📸 בחר תמונה</span></div>
+  <div class="sc">
+    <div class="drop" id="dropArea" onclick="document.getElementById('gi2').click()">
+      <div id="dropInner"><div class="di">🌿</div><p>לחץ לבחירת תמונה</p></div>
+      <img id="preview" style="display:none;">
+    </div>
+    <input type="file" id="gi2" accept="image/*" style="display:none" onchange="pick(this)">
+    <button class="btn g" id="anaBtn" onclick="doIdentify()" disabled>🔬 זהה ואבחן</button>
+  </div>
+</div>
+
+<!-- LOADING -->
+<div class="pg" id="loading">
+  <span class="spin">🌿</span>
+  <div class="lm" id="lmsg">מנתח...</div>
+  <div class="dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
+</div>
+
+<!-- IDENTIFY -->
+<div class="pg" id="identify">
+  <div class="tb"><button class="bk" onclick="show('home')">←</button><span>✅ אשר זיהוי</span></div>
+  <div class="sc">
+    <div id="iThumb" style="margin-bottom:1rem;"></div>
+    <div id="iErr" style="display:none;" class="err"></div>
+    <div class="ic">
+      <div style="display:flex;align-items:center;gap:.8rem;margin-bottom:.8rem;">
+        <span style="font-size:2.8rem;" id="iEmoji">🌿</span>
+        <div><div class="iname" id="iName">–</div><div class="ilat" id="iLat">–</div></div>
+      </div>
+      <div class="bl"><span>ביטחון</span><span id="iPct" style="font-weight:700;">0%</span></div>
+      <div class="bar"><div class="bf" id="iBar" style="width:0%"></div></div>
+      <div id="altsWrap" style="display:none;">
+        <div style="font-size:.75rem;color:#888;margin-bottom:.3rem;">אולי מדובר ב:</div>
+        <div id="altsList"></div>
+      </div>
+    </div>
+    <div class="btn2" id="yesno">
+      <button class="btn g" style="margin:0;" onclick="doD(ident.name,ident.latin||'')">✅ כן — אבחן!</button>
+      <button class="btn w" style="margin:0;" onclick="openManual()">❌ לא נכון</button>
+    </div>
+    <div class="fb" id="manWrap" style="display:none;">
+      <p style="font-weight:700;color:var(--g);margin-bottom:.5rem;">✏️ הכנס שם הצמח:</p>
+      <input class="inp" id="manInp" placeholder="פיקוס, ורד, בזיליקום..."
+        onkeydown="if(event.key==='Enter'&&this.value.trim())doD(this.value.trim(),'')">
+      <button class="btn g" onclick="var n=document.getElementById('manInp').value.trim();if(n)doD(n,'')">🔬 אבחן לפי שם זה</button>
+      <div class="xl">
+        <a href="https://identify.plantnet.org/he" target="_blank" class="xa" style="background:#2d6a4f;">🌿 PlantNet</a>
+        <a href="https://www.gardentagil.co.il" target="_blank" class="xa" style="background:#1a6b3c;">🇮🇱 גן תגיל</a>
+      </div>
+    </div>
+    <button class="btn o" onclick="show('home')">🔄 צלם מחדש</button>
+  </div>
+</div>
+
+<!-- RESULT -->
+<div class="pg" id="result">
+  <div class="hero">
+    <button class="bk" onclick="show('identify')" style="margin-bottom:.3rem;display:block;">←</button>
+    <div class="hn" id="rName">–</div>
+    <div class="hl" id="rLat">–</div>
+    <div class="hbl"><span>מצב בריאות</span><span id="rPct" style="font-weight:700;">–</span></div>
+    <div class="ht"><div class="hf" id="rFill" style="width:0%"></div></div>
+  </div>
+  <div class="sc" style="margin-top:18px;">
+    <div id="ff" style="display:none;background:rgba(74,140,92,.08);border:1px solid var(--gm);border-radius:11px;padding:.7rem .9rem;font-size:.78rem;color:#555;margin-bottom:.9rem;"></div>
+    <div class="st">📋 אבחון</div>
+    <div class="dc" id="diagCard"></div>
+    <div class="st">📅 תוכנית טיפול</div>
+    <div id="tasks"></div>
+    <button class="btn g" onclick="saveGarden()" style="margin-top:1rem;">🌱 שמור לגינה שלי</button>
+    <button class="btn o" onclick="doShare()">📤 שתף</button>
+  </div>
+</div>
+
+<!-- GARDEN -->
+<div class="pg" id="garden">
+  <div class="gh">
+    <button class="bk" onclick="show('home')">←</button>
+    <div class="gn">🌿 הגינה שלי</div>
+  </div>
+  <div class="sc">
+    <div class="gg" id="gardenGrid"></div>
+    <button class="btn g" onclick="show('home')" style="margin-top:1rem;">➕ הוסף צמח חדש</button>
+  </div>
+</div>
+
+</div><!-- /app -->
+<div class="toast" id="toast"></div>
+
+<script>
+// ── state ──
+let imgB64=null, imgMime=null, imgUrl=null;
+let ident=null, res=null, chk={};
+let garden=[];
+try{garden=JSON.parse(localStorage.getItem('drtz')||'[]');}catch{}
+let apiKey=localStorage.getItem('drtz_key')||'';
+
+// ── init ──
+updateGardenLink();
+
+function show(id){
+  document.querySelectorAll('.pg').forEach(p=>p.classList.remove('on'));
+  document.getElementById(id).classList.add('on');
+  if(id==='garden')renderGarden();
+}
+
+function updateGardenLink(){
+  document.getElementById('gardenLink').textContent='🌱 הגינה שלי ('+garden.length+' צמחים)';
+}
+
+// ── key ──
+function saveKey(){
+  const v=document.getElementById('keyIn').value.trim();
+  if(v.length<10){toast('מפתח לא תקין');return;}
+  apiKey=v;localStorage.setItem('drtz_key',v);
+  toast('✅ מפתח נשמר!');
+  // continue to scan
+  if(imgB64)show('scan'); else show('home');
+}
+
+// ── file pick ──
+function pick(inp){
+  const f=inp.files[0];if(!f)return;
+  inp.value='';
+  const r=new FileReader();
+  r.onload=e=>{
+    imgUrl=e.target.result;
+    imgB64=imgUrl.split(',')[1];
+    imgMime=f.type||'image/jpeg';
+    // update scan preview
+    const prev=document.getElementById('preview');
+    prev.src=imgUrl;prev.style.display='block';
+    document.getElementById('dropInner').style.display='none';
+    document.getElementById('dropArea').classList.add('has');
+    document.getElementById('anaBtn').disabled=false;
+    if(!apiKey){show('setup');return;}
+    show('scan');
+  };
+  r.readAsDataURL(f);
+}
+
+// ── identify ──
+async function doIdentify(){
+  if(!apiKey){show('setup');return;}
+  show('loading');document.getElementById('lmsg').textContent='מזהה את הצמח...';
+  try{
+    const text=await gemini([
+      {inlineData:{mimeType:imgMime,data:imgB64}},
+      {text:'Identify this plant. Reply ONLY with JSON (no markdown):\n{"name":"שם עברי","latin":"Genus species","emoji":"🌿","confidence":85,"alt1":"שם 2","alt2":"שם 3"}'}
+    ],350);
+    const clean=text.replace(/```json|```/g,'').trim();
+    ident=JSON.parse(clean.slice(clean.indexOf('{'),clean.lastIndexOf('}')+1));
+    showIdent(false);
+  }catch(e){
+    ident={name:'לא זוהה',latin:'',emoji:'❓',confidence:0,_err:e.message};
+    showIdent(true);
+  }
+}
+
+function showIdent(failed){
+  document.getElementById('iThumb').innerHTML=imgUrl
+    ?'<img src="'+imgUrl+'" style="width:80px;height:80px;border-radius:10px;object-fit:cover;border:2px solid var(--gm);">'
+    :'';
+  document.getElementById('iEmoji').textContent=ident.emoji||'🌿';
+  document.getElementById('iName').textContent=ident.name||'לא זוהה';
+  document.getElementById('iLat').textContent=ident.latin||'';
+  document.getElementById('iPct').textContent=(ident.confidence||0)+'%';
+  setTimeout(()=>document.getElementById('iBar').style.width=(ident.confidence||0)+'%',100);
+  const eb=document.getElementById('iErr');
+  if(ident._err){eb.style.display='block';eb.textContent='⚠️ '+ident._err;}
+  else eb.style.display='none';
+  const aw=document.getElementById('altsWrap');
+  const alts=[ident.alt1,ident.alt2].filter(Boolean);
+  if(alts.length){
+    aw.style.display='block';
+    document.getElementById('altsList').innerHTML=alts.map(a=>
+      '<div class="alt" onclick="pickAlt(\''+esc(a)+'\')">'+a+'</div>'
+    ).join('');
+  }else aw.style.display='none';
+  if(failed||ident.confidence<=20){
+    document.getElementById('yesno').style.display='none';
+    document.getElementById('manWrap').style.display='block';
+  }else{
+    document.getElementById('yesno').style.display='grid';
+    document.getElementById('manWrap').style.display='none';
+  }
+  show('identify');
+}
+
+function esc(s){return(s||'').replace(/'/g,"\\'");}
+function pickAlt(n){ident.name=n;ident.latin='';document.getElementById('iName').textContent=n;toast('✅ '+n+' נבחר');}
+function openManual(){document.getElementById('manWrap').style.display='block';document.getElementById('yesno').style.display='none';}
+
+// ── diagnose ──
+async function doD(name,latin){
+  show('loading');document.getElementById('lmsg').textContent='מאבחן ומכין תוכנית טיפול...';
+  try{
+    const raw=await gemini([
+      {inlineData:{mimeType:imgMime,data:imgB64}},
+      {text:'Plant: '+name+(latin?' ('+latin+')':'')+'\nAnswer in Hebrew. Numbered lines only:\n'+
+        '1. [light needs]\n2. [watering]\n3. [temperature]\n'+
+        '4. [what you see - health]\n5. [pests]\n6. [health 0-100]\n7. [fun fact]\n'+
+        '8. [task sun-mon]\n9. [task tue-wed]\n10. [task thu-fri]\n'+
+        '11. [week1 task]\n12. [week2 task]'}
+    ],450);
+    const L={};
+    raw.split('\n').forEach(line=>{
+      const m=line.match(/^(\d+)[.)]\s*(.+)/);
+      if(m)L[+m[1]]=m[2].replace(/^\[|\]$/g,'').trim();
+    });
+    const h=Math.min(100,Math.max(0,parseInt(L[6])||75));
+    res={
+      name,latin,
+      health:h,
+      healthColor:h>=70?'#4caf50':h>=40?'#ff9800':'#f44336',
+      funFact:L[7]||'',
+      diagnosis:[
+        {ic:'🌞',t:'אור',d:L[1]||''},
+        {ic:'💧',t:'השקיה',d:L[2]||''},
+        {ic:'🌡️',t:'טמפרטורה',d:L[3]||''},
+        {ic:'⚠️',t:'מצב בתמונה',d:L[4]||''},
+        {ic:'🐛',t:'מזיקים',d:L[5]||''},
+      ],
+      tasks:[
+        {lbl:'ראשון–שני',txt:L[8]||'בדיקת הצמח'},
+        {lbl:'שלישי–רביעי',txt:L[9]||'בדיקת עלים'},
+        {lbl:'חמישי–שישי',txt:L[10]||'תיעוד שינויים'},
+        {lbl:'שבוע 1',txt:L[11]||'דישון'},
+        {lbl:'שבוע 2',txt:L[12]||'גיזום ובדיקת שורשים'},
+      ],
+      image:imgUrl||null
+    };
+    chk={};
+    renderResult();show('result');
+  }catch(e){
+    toast('❌ '+e.message.slice(0,70));show('identify');
+  }
+}
+
+function renderResult(){
+  const p=res;
+  document.getElementById('rName').textContent='🌿 '+p.name;
+  document.getElementById('rLat').textContent=p.latin||'';
+  document.getElementById('rPct').textContent=p.health+'%';
+  setTimeout(()=>{
+    document.getElementById('rFill').style.width=p.health+'%';
+    document.getElementById('rFill').style.background=p.healthColor;
+  },120);
+  const ff=document.getElementById('ff');
+  if(p.funFact){ff.textContent='💡 '+p.funFact;ff.style.display='block';}
+  else ff.style.display='none';
+  document.getElementById('diagCard').innerHTML=p.diagnosis.map(d=>
+    '<div class="dr"><span class="dk">'+d.ic+'</span><div><div class="dt">'+d.t+'</div><div class="dd">'+d.d+'</div></div></div>'
+  ).join('');
+  document.getElementById('tasks').innerHTML=p.tasks.map((t,i)=>
+    '<div class="tc" onclick="tick('+i+')">'+
+    '<div class="ck" id="ck'+i+'"></div>'+
+    '<div><div class="tl">'+t.lbl+'</div><div class="tx" id="tx'+i+'">'+t.txt+'</div></div></div>'
+  ).join('');
+}
+
+function tick(i){
+  chk[i]=!chk[i];
+  document.getElementById('ck'+i).classList.toggle('ok',chk[i]);
+  document.getElementById('tx'+i).classList.toggle('ok',chk[i]);
+  if(chk[i])toast('✅ בוצע!');
+}
+
+function saveGarden(){
+  if(!res)return;
+  const e={...res,id:Date.now(),date:new Date().toLocaleDateString('he-IL')};
+  garden.push(e);
+  try{localStorage.setItem('drtz',JSON.stringify(garden));}catch{}
+  updateGardenLink();
+  toast('🌱 נשמר לגינה!');
+  setTimeout(()=>{renderGarden();show('garden');},900);
+}
+
+function renderGarden(){
+  const g=document.getElementById('gardenGrid');
+  if(!garden.length){
+    g.innerHTML='<div style="grid-column:1/-1;text-align:center;padding:2.5rem;color:#888;"><div style="font-size:3rem;margin-bottom:.7rem;">🌱</div><div style="font-weight:700;color:var(--g);">הגינה ריקה</div><div style="font-size:.83rem;margin-top:.25rem;">סרוק צמח ושמור אותו כאן</div></div>';
+    return;
+  }
+  g.innerHTML=garden.map(p=>
+    '<div class="pc" onclick="viewPlant('+p.id+')">'+
+    '<div class="pt">'+(p.image?'<img src="'+p.image+'">':'🌿')+
+    '<div class="pd" style="background:'+(p.health>=70?'#4caf50':p.health>=40?'#ff9800':'#f44336')+'"></div></div>'+
+    '<div class="pi"><div class="pn">'+p.name+'</div><div class="pp">'+(p.date||'')+'</div></div></div>'
+  ).join('');
+}
+
+function viewPlant(id){
+  const p=garden.find(x=>x.id==id);if(!p)return;
+  res=p;chk={};renderResult();show('result');
+}
+
+function doShare(){
+  if(!res)return;
+  const t='🌿 ד"ר צמח זיהה: '+res.name+'\nמצב בריאות: '+res.health+'%';
+  if(navigator.share)navigator.share({title:'ד"ר צמח',text:t});
+  else if(navigator.clipboard)navigator.clipboard.writeText(t).then(()=>toast('📋 הועתק!'));
+}
+
+// ── Gemini API ──
+async function gemini(parts,maxTok){
+  const url='https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key='+apiKey;
+  const r=await fetch(url,{
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({
+      contents:[{parts}],
+      generationConfig:{maxOutputTokens:maxTok,temperature:0.3}
+    })
+  });
+  const d=await r.json();
+  if(!r.ok||d.error)throw new Error(d.error?.message||'Gemini error '+r.status);
+  const text=d.candidates?.[0]?.content?.parts?.[0]?.text||'';
+  if(!text)throw new Error('תגובה ריקה');
+  return text.trim();
+}
+
+// ── toast ──
+let tt;
+function toast(msg,dur=2500){
+  const t=document.getElementById('toast');
+  t.textContent=msg;t.classList.add('on');
+  clearTimeout(tt);tt=setTimeout(()=>t.classList.remove('on'),dur);
+}
+</script>
+</body>
+</html>
